@@ -1,6 +1,6 @@
 ### Cinder LiquidFun
 
-Cinder Block of [liquidfun from Google](https://github.com/google/liquidfun). 
+Cinder Block of [LiquidFun from Google](https://github.com/google/liquidfun). 
 Just checkout out repo into your Cinder Blocks directory.
 
 _Linux only right now - other platforms are in progress!_
