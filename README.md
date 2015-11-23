@@ -5,14 +5,14 @@ Just checkout out repo into your Cinder Blocks directory.
 
 _Linux only right now - other platforms are in progress!_
 
-#### Bulding ``liquidfun`` for Linux
+#### Building ``liquidfun`` for Linux
 Starting from the Cinder LiquidFun directory:
 ```
 cd linux
 ./build-release
 ```
 
-#### Bulding and running ``Testbed`` sample for Linux
+#### Building and running ``Testbed`` sample for Linux
 Starting from the Cinder LiquidFun directory:
 ```
 cd samples/Testbed/linux
