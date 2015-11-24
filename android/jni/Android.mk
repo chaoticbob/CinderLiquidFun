@@ -30,6 +30,7 @@ LOCAL_SRC_FILES 	:= \
 ../../src/Box2D/Common/b2StackAllocator.cpp \
 ../../src/Box2D/Common/b2Stat.cpp \
 ../../src/Box2D/Common/b2Timer.cpp \
+../../src/Box2D/Common/b2TrackedBlock.cpp \
 ../../src/Box2D/Dynamics/b2Body.cpp \
 ../../src/Box2D/Dynamics/b2ContactManager.cpp \
 ../../src/Box2D/Dynamics/b2Fixture.cpp \

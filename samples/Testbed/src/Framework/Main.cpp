@@ -141,7 +141,9 @@ public:
 private:
 	void resizeView( int width, int height );
 
+#if ! defined( CINDER_GL_ES )
 	params::InterfaceGl		mParams;
+#endif
 };
 
 void TestbedApp::setup()
@@ -495,6 +497,7 @@ void prepareSettings( TestbedApp::Settings *settings )
 	title << "Cinder LiquidFun" << " | " << "Box2D Version " << b2_version.major << "." << b2_version.minor << "." << b2_version.revision;
 	settings->setTitle( title.str() );
 	settings->setWindowSize( 1280, 800 );
+	settings->setMultiTouchEnabled( false );
 }
 
 CINDER_APP( TestbedApp, RendererGl, prepareSettings )
