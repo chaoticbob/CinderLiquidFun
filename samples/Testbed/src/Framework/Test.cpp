@@ -27,6 +27,7 @@ void DestructionListener::SayGoodbye(b2Joint* joint)
 	{
 		test->m_mouseJoint = NULL;
 	}
+
 	else
 	{
 		test->JointDestroyed(joint);

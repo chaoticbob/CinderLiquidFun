@@ -318,8 +318,6 @@ void TestbedApp::keyDown(KeyEvent event)
 {
 	char key = event.getChar();
 
-console() << "key: " << key << " : " << (int)key << std::endl;
-
 	switch (key)
 	{
 	case 27:
