@@ -42,8 +42,6 @@ static float gPointScale = kPointSize;
 
 void LoadOrtho2DMatrix( int windowWidth, int windowHeight, double left, double right, double bottom, double top)
 {
-	std::cout << left << ", " << right << ", " << bottom << ", " << top << std::endl;
-
 	gWindowWidth = windowWidth;
 	gWindowHeight = windowHeight;
 
