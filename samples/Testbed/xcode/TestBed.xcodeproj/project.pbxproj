@@ -26,7 +26,6 @@
 		9496D4DF1C043E8F00A54274 /* Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9496D48D1C043E8F00A54274 /* Render.cpp */; };
 		9496D4E01C043E8F00A54274 /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9496D48F1C043E8F00A54274 /* Test.cpp */; };
 		9496D4E11C043E8F00A54274 /* TestEntries.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9496D4D11C043E8F00A54274 /* TestEntries.cpp */; };
-		9496D4EB1C043EF100A54274 /* libliquidfun.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9496D4EA1C043EE000A54274 /* libliquidfun.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +42,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9496D3FE1C043B8F00A54274;
 			remoteInfo = liquidfun;
+		};
+		9496D59D1C045F4C00A54274 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9496D4E51C043EE000A54274 /* liquidfun.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9496D5941C044E1800A54274;
+			remoteInfo = "liquidfun-ios";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -159,7 +165,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9496D4EB1C043EF100A54274 /* libliquidfun.a in Frameworks */,
 				006D720419952D00008149E2 /* AVFoundation.framework in Frameworks */,
 				006D720519952D00008149E2 /* CoreMedia.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
@@ -374,7 +379,8 @@
 		9496D4E61C043EE000A54274 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9496D4EA1C043EE000A54274 /* libliquidfun.a */,
+				9496D4EA1C043EE000A54274 /* libliquidfun-macosx_d.a */,
+				9496D59E1C045F4C00A54274 /* libliquidfun_ios_d.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -434,11 +440,19 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		9496D4EA1C043EE000A54274 /* libliquidfun.a */ = {
+		9496D4EA1C043EE000A54274 /* libliquidfun-macosx_d.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libliquidfun.a;
+			path = "libliquidfun-macosx_d.a";
 			remoteRef = 9496D4E91C043EE000A54274 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9496D59E1C045F4C00A54274 /* libliquidfun_ios_d.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			name = libliquidfun_ios_d.a;
+			path = "libliquidfun-ios_d.a";
+			remoteRef = 9496D59D1C045F4C00A54274 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -498,7 +512,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder_d.a\"";
+				OTHER_LDFLAGS = (
+					"\"$(CINDER_PATH)/lib/libcinder_d.a\"",
+					../../../lib/macosx/libliquidfun_d.a,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.libcinder.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = TestBed;
 				SYMROOT = ./build;
@@ -525,7 +542,10 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				OTHER_LDFLAGS = "\"$(CINDER_PATH)/lib/libcinder.a\"";
+				OTHER_LDFLAGS = (
+					"\"$(CINDER_PATH)/lib/libcinder.a\"",
+					../../../lib/macosx/libliquidfun.a,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.libcinder.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = TestBed;
 				STRIP_INSTALLED_PRODUCT = YES;
