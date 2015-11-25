@@ -23,15 +23,15 @@ Use Android Studio to build and run the ``Testbed`` sample.
 Starting from the Cinder LiquidFun directory:
 ```
 cd linux
-./build-release
+./build -b Release
 ```
 
 #### Building and running ``Testbed`` sample for Linux
 Starting from the Cinder LiquidFun directory:
 ```
 cd samples/Testbed/linux
-./build-release
-Release/Testbed
+./build -b Release
+Release/ogl/Testbed
 ```
   
 ### Windows
