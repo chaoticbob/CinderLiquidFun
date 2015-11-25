@@ -434,12 +434,14 @@ void TestbedApp::resizeView( int viewWidth, int viewHeight )
 	width  = viewWidth;
 	height = viewHeight;
 
+	float pixelScale = getWindowContentScale();
+
 	tx = 0;
 	ty = 0;
 	tw = width;
 	th = height;
 
-	gl::viewport( tx, ty, tw, th );
+	gl::viewport( tx * pixelScale, ty * pixelScale, tw * pixelScale, th * pixelScale );
 
 	float32 ratio = th ? float32(tw) / float32(th) : 1;
 
