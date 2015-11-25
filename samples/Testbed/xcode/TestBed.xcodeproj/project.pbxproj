@@ -36,18 +36,18 @@
 			remoteGlobalIDString = 9416178C1C05952400074DE9;
 			remoteInfo = "liquidfun-ios-sim";
 		};
+		941617A81C05AC0C00074DE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9496D4E51C043EE000A54274 /* liquidfun.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9496D3FE1C043B8F00A54274;
+			remoteInfo = "liquidfun-macosx";
+		};
 		9496D4E91C043EE000A54274 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9496D4E51C043EE000A54274 /* liquidfun.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9496D3FF1C043B8F00A54274;
-			remoteInfo = liquidfun;
-		};
-		9496D4EC1C043F0600A54274 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9496D4E51C043EE000A54274 /* liquidfun.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 9496D3FE1C043B8F00A54274;
 			remoteInfo = liquidfun;
 		};
 		9496D59D1C045F4C00A54274 /* PBXContainerItemProxy */ = {
@@ -386,9 +386,9 @@
 		9496D4E61C043EE000A54274 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9496D4EA1C043EE000A54274 /* libliquidfun-macosx_d.a */,
-				9496D59E1C045F4C00A54274 /* libliquidfun-ios_d.a */,
-				941617961C0597DD00074DE9 /* libliquidfun-ios-sim_d.a */,
+				9496D4EA1C043EE000A54274 /* libliquidfun_d.a */,
+				9496D59E1C045F4C00A54274 /* libliquidfun_d.a */,
+				941617961C0597DD00074DE9 /* libliquidfun_d.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -407,7 +407,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				9496D4ED1C043F0600A54274 /* PBXTargetDependency */,
+				941617A91C05AC0C00074DE9 /* PBXTargetDependency */,
 			);
 			name = TestBed;
 			productInstallPath = "$(HOME)/Applications";
@@ -448,24 +448,24 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		941617961C0597DD00074DE9 /* libliquidfun-ios-sim_d.a */ = {
+		941617961C0597DD00074DE9 /* libliquidfun_d.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libliquidfun-ios-sim_d.a";
+			path = libliquidfun_d.a;
 			remoteRef = 941617951C0597DD00074DE9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9496D4EA1C043EE000A54274 /* libliquidfun-macosx_d.a */ = {
+		9496D4EA1C043EE000A54274 /* libliquidfun_d.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libliquidfun-macosx_d.a";
+			path = libliquidfun_d.a;
 			remoteRef = 9496D4E91C043EE000A54274 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		9496D59E1C045F4C00A54274 /* libliquidfun-ios_d.a */ = {
+		9496D59E1C045F4C00A54274 /* libliquidfun_d.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = "libliquidfun-ios_d.a";
+			path = libliquidfun_d.a;
 			remoteRef = 9496D59D1C045F4C00A54274 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -500,10 +500,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		9496D4ED1C043F0600A54274 /* PBXTargetDependency */ = {
+		941617A91C05AC0C00074DE9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = liquidfun;
-			targetProxy = 9496D4EC1C043F0600A54274 /* PBXContainerItemProxy */;
+			name = "liquidfun-macosx";
+			targetProxy = 941617A81C05AC0C00074DE9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
