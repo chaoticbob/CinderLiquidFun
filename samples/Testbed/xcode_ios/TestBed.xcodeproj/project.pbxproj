@@ -33,6 +33,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9416178E1C0596D600074DE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9496D54E1C044D0C00A54274 /* liquidfun.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9416178C1C05952400074DE9;
+			remoteInfo = "liquidfun-ios-sim";
+		};
+		941617901C05972400074DE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9496D54E1C044D0C00A54274 /* liquidfun.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9416174F1C05952400074DE9;
+			remoteInfo = "liquidfun-ios-sim";
+		};
 		9496D5521C044D0C00A54274 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9496D54E1C044D0C00A54274 /* liquidfun.xcodeproj */;
@@ -359,6 +373,7 @@
 			children = (
 				9496D5531C044D0C00A54274 /* libliquidfun_d.a */,
 				9496D5971C044E7C00A54274 /* libliquidfun_d.a */,
+				9416178F1C0596D600074DE9 /* libliquidfun-ios-sim_d.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -394,6 +409,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				941617911C05972400074DE9 /* PBXTargetDependency */,
 				9496D59A1C044E8B00A54274 /* PBXTargetDependency */,
 			);
 			name = TestBed;
@@ -432,6 +448,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		9416178F1C0596D600074DE9 /* libliquidfun-ios-sim_d.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libliquidfun-ios-sim_d.a";
+			remoteRef = 9416178E1C0596D600074DE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		9496D5531C044D0C00A54274 /* libliquidfun_d.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -479,6 +502,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		941617911C05972400074DE9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "liquidfun-ios-sim";
+			targetProxy = 941617901C05972400074DE9 /* PBXContainerItemProxy */;
+		};
 		9496D59A1C044E8B00A54274 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = liquidfun_ios;
@@ -567,13 +595,14 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = TestBed_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
-				"OTHER_LDFLAGS[sdk=iphoneos*][arch=*]" = (
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = (
 					"\"$(CINDER_PATH)/lib/libcinder-iphone_d.a\"",
 					../../../lib/ios/libliquidfun_d.a,
 					"-lz",
 				);
 				"OTHER_LDFLAGS[sdk=iphonesimulator*][arch=*]" = (
 					"\"$(CINDER_PATH)/lib/libcinder-iphone-sim_d.a\"",
+					"../../../lib/ios-sim/libliquidfun_d.a",
 					"-lz",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -594,6 +623,7 @@
 				);
 				"OTHER_LDFLAGS[sdk=iphonesimulator*][arch=*]" = (
 					"\"$(CINDER_PATH)/lib/libcinder-iphone-sim.a\"",
+					"../../../lib/ios-sim/libliquidfun_d.a",
 					"-lz",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
