@@ -3,7 +3,7 @@
 Cinder Block of [LiquidFun from Google](https://github.com/google/liquidfun). 
 Just checkout out repo into your Cinder Blocks directory.
 
-_Linux only right now - other platforms are in progress!_
+Android, Linux, Windows - _OS X and iOS in progress_
 
 #### Building ``liquidfun`` for Linux
 Starting from the Cinder LiquidFun directory:
