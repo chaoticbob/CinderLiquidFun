@@ -1,5 +1,0 @@
-#!/bin/bash
-mkdir -p ./Release
-cd ./Release
-cmake ../.. -DCMAKE_BUILD_TYPE=Release
-make -j `getconf _NPROCESSORS_ONLN`

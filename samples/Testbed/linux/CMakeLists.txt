@@ -41,13 +41,13 @@ endif()
 
 project( Testbed )
 
-set( SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src" )
-set( INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src" )
+get_filename_component( SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../src" ABSOLUTE )
+get_filename_component( INC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../src" ABSOLUTE )
 
-get_filename_component( BOX2D_DIR      "${CMAKE_CURRENT_SOURCE_DIR}/../.." ABSOLUTE)
+get_filename_component( BOX2D_DIR      "${CMAKE_CURRENT_SOURCE_DIR}/../../.." ABSOLUTE)
 get_filename_component( BOX2D_INC_DIR  "${BOX2D_DIR}/include" ABSOLUTE )
 get_filename_component( BOX2D_LIB_DIR  "${BOX2D_DIR}/lib" ABSOLUTE )
-get_filename_component( CINDER_DIR     "${CMAKE_CURRENT_SOURCE_DIR}/../../../.." ABSOLUTE )
+get_filename_component( CINDER_DIR     "${CMAKE_CURRENT_SOURCE_DIR}/../../../../.." ABSOLUTE )
 get_filename_component( CINDER_INC_DIR "${CINDER_DIR}/include" ABSOLUTE )
 get_filename_component( CINDER_LIB_DIR "${CINDER_DIR}/lib/linux/x86_64" ABSOLUTE )
 
