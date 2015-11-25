@@ -21,6 +21,7 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
+#include "cinder/gl/TextureFont.h"
 #if ! defined( CINDER_GL_ES )
 	#include "cinder/params/Params.h"
 #endif
@@ -143,6 +144,9 @@ private:
 
 #if ! defined( CINDER_GL_ES )
 	params::InterfaceGl		mParams;
+#else
+	Rectf					mLeftButton;
+	Rectf					mRightButton;
 #endif
 };
 
@@ -192,11 +196,35 @@ void TestbedApp::setup()
 	mParams.addParam( "Center of Masses", &settings.drawCOMs );
 	mParams.addParam( "Statistics", &settings.drawStats );
 	mParams.addParam( "Profile", &settings.drawProfile );
+#else
+	float s = 1080.0f/480.0f;
+	Rectf r = Rectf( 0, 0, 50*s, 50*s );
+	mLeftButton = r + vec2( 0, getWindowHeight() - r.getHeight() );
+	mRightButton = r + vec2( getWindowWidth() - r.getWidth(), getWindowHeight() - r.getHeight() );
 #endif
 }
 
 void TestbedApp::mouseDown( MouseEvent event )
 {
+#if defined( CINDER_GL_ES )
+	if( mLeftButton.contains( event.getPos() ) ) {
+		--testSelection;
+		if (testSelection < 0)
+		{
+			testSelection = testCount - 1;
+		}
+		return;
+	}
+	else if( mRightButton.contains( event.getPos() ) ) {
+		++testSelection;
+		if (testSelection == testCount)
+		{
+			testSelection = 0;
+		}
+		return;
+	}
+#endif
+
 	int x = event.getPos().x;
 	int y = event.getPos().y;
 	int button = GLUT_NONE;
@@ -458,6 +486,10 @@ void TestbedApp::draw()
 
 #if ! defined( CINDER_GL_ES )
 	mParams.draw();
+#else
+	gl::color( 0.6f, 0.6f, 0.7f );
+	gl::drawSolidRect( mLeftButton );
+	gl::drawSolidRect( mRightButton );
 #endif
 
 	if (testSelection != testIndex || restartTest)
