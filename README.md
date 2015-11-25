@@ -43,5 +43,5 @@ Use Visual Studio 2013 to build the static library.
 Use Visual Studio 2013 for build the ``Testbed`` sample. 
 
   
-#### Screenshot
+## Screenshot
 ![alt tag](https://raw.githubusercontent.com/chaoticbob/CinderLiquidFun/master/screenshots/linux/Sandbox.png)
