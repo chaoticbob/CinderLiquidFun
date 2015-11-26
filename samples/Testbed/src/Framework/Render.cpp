@@ -40,6 +40,10 @@ static gl::TextureRef gParticleTex;
 const float kPointSize = 0.05f/40.0f;
 static float gPointScale = kPointSize;
 
+static gl::BatchRef gBatch;
+static gl::GlslProgRef gBatchShader;
+static TriMesh gClientBuffer;
+
 void LoadOrtho2DMatrix( int windowWidth, int windowHeight, double left, double right, double bottom, double top)
 {
 	gWindowWidth = windowWidth;
@@ -109,6 +113,7 @@ float smoothstep(float x) { return x * x * (3 - 2 * x); }
 
 void DebugDraw::DrawParticles(const b2Vec2 *centers, float32 radius, const b2ParticleColor *colors, int32 count)
 {
+	// Textures so the particles look pretty
 	if( ! gParticleTex ) {
 		const int TSIZE = 64;
 		unsigned char tex[TSIZE][TSIZE][4];
@@ -129,11 +134,47 @@ void DebugDraw::DrawParticles(const b2Vec2 *centers, float32 radius, const b2Par
 		gParticleTex = gl::Texture::create( *surf );
 	}
 
+	// Batch and client buffer
+	if( ! gBatch ) {
+		gl::GlslProgRef shader = gl::context()->getStockShader( gl::ShaderDef().texture( gParticleTex ).color() );
+
+		gl::VboMesh::Layout vertexLayout = gl::VboMesh::Layout()
+			.interleave( false )
+			.usage( GL_DYNAMIC_DRAW )
+			.attrib( geom::Attrib::POSITION, 2 );
+			//.attrib( geom::Attrib::TEX_COORD_0, 2 )
+			//.attrib( geom::Attrib::COLOR, 4 );
+		std::vector<gl::VboMesh::Layout> vertexLayouts;
+		vertexLayouts.push_back( vertexLayout );
+		gl::VboMeshRef vboMesh = gl::VboMesh::create( 0, GL_TRIANGLES, vertexLayouts, 3, GL_UNSIGNED_INT );
+		gBatch = gl::Batch::create( vboMesh, shader );
+
+		gClientBuffer = TriMesh( TriMesh::Format().positions( 2 ).colors( 4 ).texCoords() );
+	}
+
+	const size_t kIndicesPerPrim   = 6;
+	const size_t kPositionsPerPrim = 4;
+	const size_t kTexCoordsPerPrim = 4;
+	const size_t kColorsPerPrim    = 4;		
+	int numParticles = gClientBuffer.getIndices().size() / kIndicesPerPrim;
+	if( count > numParticles ) {
+		gClientBuffer.getIndices().resize( kIndicesPerPrim*count );
+		// These return the raw float buffers, so multiply by thei per primitive count
+		gClientBuffer.getBufferPositions().resize( 2*kPositionsPerPrim*count );
+		gClientBuffer.getBufferTexCoords0().resize( 2*kTexCoordsPerPrim*count );
+		gClientBuffer.getBufferColors().resize( 4*kColorsPerPrim*count );
+	}
+
+
 	const float particle_size_multiplier = 2.0f;  // because of falloff
 	const float pointSize = radius  * particle_size_multiplier;
 
 	// Not the fastest way to draw particles
-	TriMesh mesh( TriMesh::Format().positions( 2 ).colors( 4 ).texCoords() );
+	//TriMesh mesh( TriMesh::Format().positions( 2 ).colors( 4 ).texCoords() );
+	auto& indicesBuffer   = gClientBuffer.getIndices();
+	vec2* positionsBuffer = gClientBuffer.getPositions<2>();
+	vec2* texCoordsBuffer = gClientBuffer.getTexCoords0<2>();
+	ColorA* colorsBuffer  = gClientBuffer.getColors<4>();
 	for( int32 i = 0; i < count; ++i ) {
 		// Counter-clockwise
 		vec2 P0 = vec2( centers[i].x, centers[i].y ) + vec2( -pointSize, -pointSize );
@@ -148,6 +189,7 @@ void DebugDraw::DrawParticles(const b2Vec2 *centers, float32 radius, const b2Par
 		if( nullptr != colors ) {
 			c = ColorA( colors[i].r/255.0f, colors[i].g/255.0f, colors[i].b/255.0f, colors[i].a/255.0f );
 		}
+		/*
 		mesh.appendPosition( P0 );
 		mesh.appendPosition( P1 );
 		mesh.appendPosition( P2 );
@@ -161,24 +203,52 @@ void DebugDraw::DrawParticles(const b2Vec2 *centers, float32 radius, const b2Par
 		mesh.appendColorRgba( c );
 		mesh.appendColorRgba( c );
 		size_t n = mesh.getNumVertices();
+		*/
+		positionsBuffer[4*i + 0] = P0;
+		positionsBuffer[4*i + 1] = P1;
+		positionsBuffer[4*i + 2] = P2;
+		positionsBuffer[4*i + 3] = P3;
+		texCoordsBuffer[4*i + 0] = uv0;
+		texCoordsBuffer[4*i + 1] = uv1;
+		texCoordsBuffer[4*i + 2] = uv2;
+		texCoordsBuffer[4*i + 3] = uv3;
+		colorsBuffer[4*i + 0] = c;
+		colorsBuffer[4*i + 1] = c;
+		colorsBuffer[4*i + 2] = c;
+		colorsBuffer[4*i + 3] = c;
+		size_t n = (i + 1)*4;
 		uint32_t v0 = n - 4;
 		uint32_t v1 = n - 3;
 		uint32_t v2 = n - 2;
 		uint32_t v3 = n - 1;
-		mesh.appendTriangle( v0, v1, v2 );
-		mesh.appendTriangle( v0, v2, v3 );
+		//mesh.appendTriangle( v0, v1, v2 );
+		//mesh.appendTriangle( v0, v2, v3 );
+		// First triangle
+		indicesBuffer[6*i + 0]= v0;
+		indicesBuffer[6*i + 1]= v1;
+		indicesBuffer[6*i + 2]= v2;
+		// Second triangle
+		indicesBuffer[6*i + 3]= v0;
+		indicesBuffer[6*i + 4]= v2;
+		indicesBuffer[6*i + 5]= v3;
 	}
 
-	gl::setMatrices( gOrthoCam );
+	auto vboMesh = gBatch->getVboMesh();
+	vboMesh->bufferIndices( count*kIndicesPerPrim*sizeof(uint32_t), static_cast<const void*>( indicesBuffer.data() ) );
+	//vboMesh->bufferAttrib( geom::Attrib::POSITION, count*kPositionsPerPrim*sizeof(float), static_cast<void*>( positionsBuffer ) );
+	//vboMesh->bufferAttrib( geom::Attrib::TEX_COORD_0, count*kTexCoordsPerPrim*sizeof(float), static_cast<void*>( texCoordsBuffer ) );
+	//vboMesh->bufferAttrib( geom::Attrib::COLOR, count*kColorsPerPrim*sizeof(float), static_cast<void*>( colorsBuffer ) );
 
+	gl::setMatrices( gOrthoCam );
 	gl::ScopedBlendAlpha scopedBlend();
 
-	gl::GlslProgRef shader = gl::context()->getStockShader( gl::ShaderDef().texture( gParticleTex ).color() );
-	gl::ScopedGlslProg scopedShader( shader );
+	//gl::GlslProgRef shader = gl::context()->getStockShader( gl::ShaderDef().texture( gParticleTex ).color() );
+	//gl::ScopedGlslProg scopedShader( shader );
 
 	gl::ScopedTextureBind scopedTex( gParticleTex, 0 );
 
-	gl::draw( mesh );
+	gBatch->draw( 0, 1 );
+	//gl::draw( mesh );
 }
 
 void DebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Vec2& axis, const b2Color& color)
