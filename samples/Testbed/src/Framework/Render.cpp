@@ -228,10 +228,10 @@ void DebugDraw::DrawParticles(const b2Vec2 *centers, float32 radius, const b2Par
 	auto positionsVbo = vboMesh->findAttrib( geom::Attrib::POSITION )->second;
 	auto texCoordsVbo = vboMesh->findAttrib( geom::Attrib::TEX_COORD_0 )->second;
 	auto colorsVbo = vboMesh->findAttrib( geom::Attrib::COLOR )->second;
-	indicesVbo->bufferData( count*kIndicesPerPrim*sizeof(uint32_t), gIndicesBuffer.data(), GL_STATIC_DRAW );
-	positionsVbo->bufferData( count*kPositionsPerPrim*sizeof(vec2), gPositionsBuffer.data(), GL_STATIC_DRAW );
-	texCoordsVbo->bufferData( count*kTexCoordsPerPrim*sizeof(vec2), gTexCoordsBuffer.data(), GL_STATIC_DRAW );
-	colorsVbo->bufferData( count*kColorsPerPrim*sizeof(ColorA), gColorsBuffer.data(), GL_STATIC_DRAW );
+	indicesVbo->bufferData( count*kIndicesPerPrim*sizeof(uint32_t), gIndicesBuffer.data(), GL_DYNAMIC_DRAW );
+	positionsVbo->bufferData( count*kPositionsPerPrim*sizeof(vec2), gPositionsBuffer.data(), GL_DYNAMIC_DRAW );
+	texCoordsVbo->bufferData( count*kTexCoordsPerPrim*sizeof(vec2), gTexCoordsBuffer.data(), GL_DYNAMIC_DRAW );
+	colorsVbo->bufferData( count*kColorsPerPrim*sizeof(ColorA), gColorsBuffer.data(), GL_DYNAMIC_DRAW );
 
 	gl::setMatrices( gOrthoCam );
 	gl::ScopedBlendAlpha scopedBlend;
