@@ -3,8 +3,6 @@
 Cinder Block of [LiquidFun from Google](https://github.com/google/liquidfun). 
 Just checkout out repo into your Cinder Blocks directory.
 
-Android, Linux, Windows - _OS X and iOS in progress_
-
 ## Android
 
 #### Building ``liquidfun`` for Android
@@ -33,6 +31,14 @@ cd samples/Testbed/linux
 ./build -b Release
 Release/ogl/Testbed
 ```
+
+### Mac OS X and iOS
+
+#### Building ``liquidfun`` for Mac OS X and iOS
+Use XCode to build the static library.
+
+#### Building and running ``Testbed`` sample for Mac OS X and iOS
+Use XCode for build the ``Testbed`` sample.   
   
 ### Windows
 
